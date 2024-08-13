@@ -1,6 +1,6 @@
 - # Yüklemek için
 ___
-```javascript
+```
 npm install baskan.db
 ```
 
@@ -15,6 +15,7 @@ _________________________
 | db.delete("example")  |
 | db.fetch("example")   |
 | db.has("example")     |
+| db.get("example")     |
 |_______________________|
   
 ________________________
