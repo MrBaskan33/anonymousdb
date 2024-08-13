@@ -1,0 +1,25 @@
+{
+  "name": "local.db",
+  "version": "1.0.0",
+  "description": "Json tabanlı okunabilir Türkçe database modülü.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node --no-warnings src/index.js"
+  },
+  "keywords": [
+    "json",
+    "database",
+    "discord.js",
+    "local.db",
+    "turkish"
+  ],
+  "author": "mrbaskan",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/MrBaskan33/local.db/issues"
+  },
+  "homepage": "https://github.com/MrBaskan33/local.db#readme",
+  "dependencies": {
+    "fs": "^0.0.2"
+  }
+}
