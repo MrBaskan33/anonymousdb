@@ -1,13 +1,13 @@
 - # Yüklemek için
 ___
-```
-npm install locale.db
+```javascript
+npm install baskan.db
 ```
 
 - # Nasıl kullanılır
 ___
 ```javascript
-const { JsonDatabase } = require("locale.db")
+const { JsonDatabase } = require("baskan.db")
 const db = new JsonDatabase({path: "./database.json"})
 _________________________
 |                       |        
