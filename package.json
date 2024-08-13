@@ -1,5 +1,5 @@
 {
-  "name": "locale.db",
+  "name": "baskan.db",
   "version": "1.0.0",
   "description": "Json tabanlı okunabilir Türkçe database modülü.",
   "main": "src/index.js",
@@ -10,7 +10,7 @@
     "json",
     "database",
     "discord.js",
-    "locale.db",
+    "baskan.db",
     "turkish"
   ],
   "author": "mrbaskan",
