@@ -21,5 +21,8 @@
   "homepage": "https://github.com/MrBaskan33/local.db#readme",
   "dependencies": {
     "fs": "^0.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
