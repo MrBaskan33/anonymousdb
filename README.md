@@ -50,7 +50,7 @@ _______________________________|
 require("baskan.db")
 console.log("renk", "mesaj")
 
-- Desteklenen renkler: black, red, green, yellow, blue, magenta, cyan, white
+// Desteklenen renkler: black, red, green, yellow, blue, magenta, cyan, white
 ```
 
 - # İletişim
