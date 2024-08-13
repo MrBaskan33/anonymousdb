@@ -1,2 +1,50 @@
-# local.db
-Json tabanlı okunabilir Türkçe database modülü.
+- # Yüklemek için
+___
+```
+npm install local.db
+```
+
+- # Nasıl kullanılır
+___
+```javascript
+const { JsonDatabase } = require("local.db")
+const db = new JsonDatabase({path: "./database.json"})
+_________________________
+|                       |        
+| db.set("examlple", 1) |
+| db.delete("example")  |
+| db.fetch("example")   |
+| db.has("example")     |
+|_______________________|
+  
+________________________
+|                      |
+| db.all()             |
+| db.deleteAll()       |
+|______________________|
+  
+________________________________
+|                              |        
+| db.add("examlple", 1)        |
+| db.substract("example", 1)   |
+| db.push("example", "data")   |
+| db.unpush("example", "data") |
+|______________________________|
+  
+  
+________________________
+|                      |
+| db.startsWith("e")   |
+| db.endsWith("e")     |
+|______________________|
+  
+_______________________________|
+|                              |
+| db.backup("./database.json") |
+|______________________________|
+  
+```
+
+- # İletişim
+___
+**[Discord Profilim](https://discord.com/users/873182701061021696) | [Discord Serveri](https://discord.com/invite/Mr8Dp2Bwk2)**
