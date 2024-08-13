@@ -47,6 +47,14 @@ class JsonDatabase {
     return this.data[key]
   }
 
+  get(key) {
+    if(!key) {
+      this.logMessage("Anahtar belirtilmemiş.")
+      return null
+    }
+    return this.data[key]
+  }
+  
   delete(key) {
     if(!key) {
       this.logMessage("Anahtar belirtilmemiş.")
