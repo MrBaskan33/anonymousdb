@@ -46,6 +46,8 @@ _______________________________|
   
 ```
 
+- # Nasıl kullanılır ( Renkli konsol yazısı ) 
+___
 ```javascript
 require("baskan.db")
 console.log("renk", "mesaj")
