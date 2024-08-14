@@ -1,6 +1,6 @@
 {
   "name": "baskan.js",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Türçe kullanışlı içerikler bulunan küçük bir modül.",
   "main": "src/index.js",
   "scripts": {
@@ -20,7 +20,17 @@
     "bots",
     "bot",
     "axios",
-    "fs"
+    "fs",
+    "color",
+    "colour",
+    "colors",
+    "terminal",
+    "console",
+    "styles",
+    "log",
+    "logging",
+    "text",
+    "rgb"
   ],
   "author": "mrbaskan",
   "license": "Apache-2.0",
