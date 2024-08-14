@@ -1,7 +1,7 @@
 {
-  "name": "baskan.db",
-  "version": "1.0.0",
-  "description": "Json tabanlı okunabilir Türkçe database modülü.",
+  "name": "baskan.js",
+  "version": "1.0.2",
+  "description": "Türçe kullanışlı içerikler bulunan küçük bir modül.",
   "main": "src/index.js",
   "scripts": {
     "start": "node --no-warnings src/index.js"
@@ -10,19 +10,29 @@
     "json",
     "database",
     "discord.js",
-    "baskan.db",
-    "turkish"
+    "discord",
+    "baskan.js",
+    "turkish",
+    "topgg",
+    "top.gg",
+    "votes",
+    "vote",
+    "bots",
+    "bot",
+    "axios",
+    "fs"
   ],
   "author": "mrbaskan",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/MrBaskan33/locale.db/issues"
+    "url": "https://github.com/MrBaskan33/baskan.js/issues"
   },
-  "homepage": "https://github.com/MrBaskan33/locale.db#readme",
+  "homepage": "https://github.com/MrBaskan33/baskan.js#readme",
   "dependencies": {
-    "fs": "^0.0.2"
+    "fs": "^0.0.2",
+    "axios": "^1.7.4"
   },
-  "publishConfig": {
-    "access": "public"
+  "engines": {
+    "node": "16.x"
   }
 }
