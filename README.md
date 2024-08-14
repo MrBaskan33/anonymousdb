@@ -1,13 +1,13 @@
 - # Yüklemek için
 ___
 ```
-npm install baskan.db
+npm install baskan.js
 ```
 
 - # Nasıl kullanılır
 ___
 ```javascript
-const { JsonDatabase } = require("baskan.db")
+const { JsonDatabase } = require("baskan.js")
 const db = new JsonDatabase({path: "./database.json"})
 _________________________
 |                       |        
@@ -44,6 +44,35 @@ _______________________________|
 | db.backup("./database.json") |
 |______________________________|
   
+```
+
+- # Nasıl kullanılır ( Top.gg api )
+___
+```javascript
+const { TopGG } = require("baskan.js")
+const topgg = new TopGG("dbl_token", "bot_id")
+
+async function voteControl(userId) {
+  topgg.isVoted(userId).then(voted => {
+    console.log(voted)
+  })
+}
+voteControl("user_id")
+
+async function botInfo() {
+  try {
+    const botInfo = await topgg.getBotInfo()
+    if(botInfo) {
+      console.log(`Botun toplam oy sayısı: ${botInfo.points}`)
+      console.log(`Botun bu ayda ki oy sayısı: ${botInfo.monthlyPoints}`)
+    } else {
+      console.log("Bot istatistikleri bulunamadı.")
+    }
+  } catch (error) {
+    console.error("Bot istatistiklerini alırken hata oluştu:", error)
+  }
+}
+botInfo()
 ```
 
 - # İletişim
