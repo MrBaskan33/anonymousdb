@@ -75,6 +75,16 @@ async function botInfo() {
 botInfo()
 ```
 
+- # Nasıl kullanılır ( Renkli konsol mesajı )
+___
+```javascript
+require("baskan.js")
+
+console.log("renk", "mesaj")
+
+// Desteklenen renkler: black, red, green, yellow, blue, magenta, cyan, white, gray
+```
+
 - # İletişim
 ___
 **[Discord Profilim](https://discord.com/users/873182701061021696) | [Discord Serveri](https://discord.com/invite/Mr8Dp2Bwk2)**
