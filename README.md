@@ -85,6 +85,25 @@ console.log("renk", "mesaj")
 // Desteklenen renkler: black, red, green, yellow, blue, magenta, cyan, white, gray
 ```
 
+- # Nasıl kullanılır ( Yapay zeka )
+___
+```javascript
+const { BaskanAI } = require("baskan.js")
+const ai = new BaskanAI()
+
+async function chat(content) {
+  const reply = await ai.chat(content)
+  console.log(reply)
+}
+chat("Selam.")
+
+async function image(prompt) {
+  const reply = await ai.image(prompt)
+  console.log(reply)
+}
+image("Araba")
+```
+
 - # İletişim
 ___
 **[Discord Profilim](https://discord.com/users/873182701061021696) | [Discord Serveri](https://discord.com/invite/Mr8Dp2Bwk2)**
