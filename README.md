@@ -7,7 +7,7 @@ npm install baskan-db
 - # Nasıl kullanılır
 ___
 ```javascript
-const { JsonDatabase } = require("baskan.js")
+const { JsonDatabase } = require("baskan-db")
 const db = new JsonDatabase({path: "./database.json"})
 _________________________
 |                       |        
