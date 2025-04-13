@@ -1,7 +1,7 @@
 {
-  "name": "baskan.js",
-  "version": "1.0.6",
-  "description": "Türçe kullanışlı içerikler bulunan küçük bir modül.",
+  "name": "baskan-db",
+  "version": "0.0.1",
+  "description": "Türçe okunabilir json database kütüphanesi.",
   "main": "src/index.js",
   "scripts": {
     "start": "node --no-warnings src/index.js"
@@ -11,45 +11,16 @@
     "database",
     "discord.js",
     "discord",
-    "baskan.js",
-    "turkish",
-    "topgg",
-    "top.gg",
-    "votes",
-    "vote",
-    "bots",
-    "bot",
-    "axios",
-    "fs",
-    "color",
-    "colors",
-    "terminal",
-    "console",
-    "log",
-    "rgb",
-    "ai",
-    "chatbot",
-    "chatgpt",
-    "gpt",
-    "image",
-    "openai",
-    "ai-image",
-    "chatgpt-4",
-    "midjourney",
-    "dall-e2"
+    "baskan-db",
+    "turkish"
   ],
   "author": "mrbaskan",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/MrBaskan33/baskan.js/issues"
+    "url": "https://github.com/MrBaskan33/baskan-db/issues"
   },
-  "homepage": "https://github.com/MrBaskan33/baskan.js#readme",
+  "homepage": "https://github.com/MrBaskan33/baskan-db#readme",
   "dependencies": {
-    "fs": "^0.0.2",
-    "axios": "^1.7.4",
-    "hercai": "^12.3.2"
-  },
-  "engines": {
-    "node": "16.x"
+    "fs": "^0.0.2"
   }
 }
