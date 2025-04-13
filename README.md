@@ -1,7 +1,7 @@
 - # Yüklemek için
 ___
 ```
-npm install baskan.js
+npm install baskan-db
 ```
 
 - # Nasıl kullanılır
@@ -45,65 +45,3 @@ _______________________________|
 |______________________________|
   
 ```
-
-- # Nasıl kullanılır ( Top.gg api )
-___
-```javascript
-const { TopGG } = require("baskan.js")
-const topgg = new TopGG("dbl_token", "bot_id")
-
-async function voteControl(userId) {
-  topgg.isVoted(userId).then(voted => {
-    console.log(voted)
-  })
-}
-voteControl("user_id")
-
-async function botInfo() {
-  try {
-    const botInfo = await topgg.getBotInfo()
-    if(botInfo) {
-      console.log(`Botun toplam oy sayısı: ${botInfo.points}`)
-      console.log(`Botun bu ayda ki oy sayısı: ${botInfo.monthlyPoints}`)
-    } else {
-      console.log("Bot istatistikleri bulunamadı.")
-    }
-  } catch (error) {
-    console.error("Bot istatistiklerini alırken hata oluştu:", error)
-  }
-}
-botInfo()
-```
-
-- # Nasıl kullanılır ( Renkli konsol mesajı )
-___
-```javascript
-require("baskan.js")
-
-console.log("renk", "mesaj")
-
-// Desteklenen renkler: black, red, green, yellow, blue, magenta, cyan, white, gray
-```
-
-- # Nasıl kullanılır ( Yapay zeka )
-___
-```javascript
-const { BaskanAI } = require("baskan.js")
-const ai = new BaskanAI()
-
-async function chat(content) {
-  const reply = await ai.chat(content)
-  console.log(reply)
-}
-chat("Selam.")
-
-async function image(prompt) {
-  const reply = await ai.image(prompt)
-  console.log(reply)
-}
-image("Araba")
-```
-
-- # İletişim
-___
-**[Discord Profilim](https://discord.com/users/873182701061021696) | [Discord Serveri](https://discord.com/invite/Mr8Dp2Bwk2)**
