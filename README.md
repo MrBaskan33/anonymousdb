@@ -1,47 +1,36 @@
 - # Yüklemek için
-___
 ```
 npm install baskan-db
 ```
-
-- # Nasıl kullanılır
 ___
+- # Nasıl kullanılır
 ```javascript
 const { JsonDatabase } = require("baskan-db")
-const db = new JsonDatabase({path: "./database.json"})
-_________________________
-|                       |        
-| db.set("examlple", 1) |
-| db.delete("example")  |
-| db.fetch("example")   |
-| db.has("example")     |
-| db.get("example")     |
-|_______________________|
-  
-________________________
-|                      |
-| db.all()             |
-| db.deleteAll()       |
-|______________________|
-  
+const db = new JsonDatabase({ path: "./database/baskandb.json" })
+
 ________________________________
 |                              |        
-| db.add("examlple", 1)        |
-| db.substract("example", 1)   |
-| db.push("example", "data")   |
-| db.unpush("example", "data") |
+| db.set("key", "value")       |
+| db.delete("key")             |
+| db.fetch("key")              |
+| db.has("key")                |
+| db.get("key")                |
+| db.all()                     |
+| db.fetchAll()                |  
+| db.add("number", 1)          |
+| db.sub("number", 1)          |
+| db.push("array", "value")    |
+| db.pull("array", "value")    |
+| db.length("key")             |
+| db.size()                    |
+| db.version()                 |
+| db.type("key")               |
+| db.startsWith("key")         |
+| db.endsWith("key")           |
+| db.includes("key")           |
+| db.includesDelete("key")     |
+| db.clear()                   |
+| db.destroy()                 |
+| db.backup("./backupdb.json") |
 |______________________________|
-  
-  
-________________________
-|                      |
-| db.startsWith("e")   |
-| db.endsWith("e")     |
-|______________________|
-  
-_______________________________|
-|                              |
-| db.backup("./database.json") |
-|______________________________|
-  
 ```
