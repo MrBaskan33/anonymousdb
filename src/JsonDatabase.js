@@ -302,182 +302,149 @@ class JsonDatabase extends EventEmitter {
     return this.read(this.path)
   }
 
-includesDelete(searchKey) {
-if (!searchKey) throw new Error("Key not specified.", "KeyError");
-if (typeof searchKey !== "string") throw new Error("Key needs to be a string.", "KeyError");
-if(searchKey.includes(this.separator)) throw new Error("Key must not include separator", "KeyError");
+  includesDelete(searchKey) {
+    if(!searchKey) throw new Error("Key not specified.", "KeyError")
+    if(typeof searchKey !== "string") throw new Error("Key needs to be a string.", "KeyError")
+    if(searchKey.includes(this.separator)) throw new Error("Key must not include separator", "KeyError")
+    const db = this.read(this.path)
+    let deletedCount = 0
+    const deleteRecursive = (obj, searchKey) => {
+      for(const key in obj) {
+        if(key.includes(searchKey)) {
+          delete obj[key]
+          deletedCount++
+          if(this.useEmit) {
+            this.emit("includesDelete", key)
+          }
+        } else if (typeof obj[key] === "object" && obj[key] !== null) {
+          deleteRecursive(obj[key], searchKey)
+          if(Object.keys(obj[key]).length === 0) {
+            delete obj[key]
+            if(this.useEmit) { 
+              this.emit("includesDelete", key)
+            }
+            deletedCount++
+          }
+        }
+      }
+    }
+    deleteRecursive(db, searchKey)
+    this.save(this.path, db)
+    return deletedCount > 0 ? true : null
+  }
 
-const db = this.read(this.path);
-let deletedCount = 0;
+  all(key = "all") {
+    switch (key) {
+      case "all":
+      return this.read(this.path)
+      case "object":
+      return Object.entries(this.read(this.path))
+      case "keys":
+      return Object.keys(this.read(this.path))
+      case "values":
+      return Object.values(this.read(this.path))
+    }
+  }
 
-const deleteRecursive = (obj, searchKey) => {
-for (const key in obj) {
-if (key.includes(searchKey)) {
+  length(key = "all") {
+    switch (key) {
+      case "all":
+      return this.all("object").length
+      case key:
+      return this.includes(key).length
+    }
+  }
 
-delete obj[key];
-deletedCount++;
-if (this.useEmit) {
-this.emit('includesDelete', key);
-}
-} else if (typeof obj[key] === 'object' && obj[key] !== null) {
+  startsWith(key) {
+    if(!key) throw new Error("Key not specified.", "KeyError")
+    if(typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError")
+    const db = this.read(this.path)
+    const array = []
+    for(const id in db) {
+      const keys = { ID: id, data: db[id] }
+      array.push(keys)
+    }
+    const keyParts = key.split(this.separator)
+    return array.filter(x => {
+      const idStartsWith = keyParts.every(part => x.ID.startsWith(part))
+      const dataStartsWith = (typeof x.data === "object") && Object.keys(x.data).some(subKey => {
+        return keyParts.some(part => subKey.startsWith(part))
+      })
+      return idStartsWith || dataStartsWith
+    })
+  }
 
-deleteRecursive(obj[key], searchKey);
+  endsWith(key) {
+    if(!key) throw new Error("Key not specified.", "KeyError")
+    if(typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError")
+    const db = this.read(this.path)
+    const array = []
+    for(const id in db) {
+      const keys = { ID: id, data: db[id] }
+      array.push(keys)
+    }
+    const keyParts = key.split(this.separator)
+    return array.filter(x => {
+      const idEndsWith = keyParts.every(part => x.ID.endsWith(part))
+      const dataEndsWith = (typeof x.data === "object") && Object.keys(x.data).some(subKey => {
+        return keyParts.some(part => subKey.endsWith(part))
+      })
+      return idEndsWith || dataEndsWith
+    })
+  }
 
-if (Object.keys(obj[key]).length === 0) {
-delete obj[key];
-if(this.useEmit) { 
-this.emit('includesDelete', key);
-}
-deletedCount++;
-}
-}
-}
-};
+  includes(key) {
+    if(!key) throw new Error("Key not specified.", "KeyError")
+    if(typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError")
+    const db = this.read(this.path)
+    const array = []
+    for(const id in db) {
+      const keys = { ID: id, data: db[id] }
+      array.push(keys)
+    }
+    const keyParts = key.split(this.separator)
+    return array.filter(x => {
+      const idIncludes = keyParts.every(part => x.ID.includes(part))
+      const dataIncludes = (typeof x.data === "object") && Object.keys(x.data).some(subKey => subKey.includes(key))
+      return idIncludes || dataIncludes
+    })
+  }
 
-deleteRecursive(db, searchKey);
-
-this.save(this.path, db);
-
-return deletedCount > 0 ? true : null;
-}
-
-all(key = 'all') {
-switch (key) {
-case 'all':
-return this.read(this.path)
-case 'object':
-return Object.entries(this.read(this.path))
-case 'keys':
-return Object.keys(this.read(this.path))
-case 'values':
-return Object.values(this.read(this.path))
-}
-}
-
-length(key = 'all') {
-switch (key) {
-case 'all':
-return this.all("object").length
-case key:
-return this.includes(key).length
-}
-}
-
-startsWith(key) {
-if (!key) throw new Error("Key not specified.", "KeyError");
-if (typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError");
-
-const db = this.read(this.path);
-const array = [];
-
-
-for (const id in db) {
-const keys = { ID: id, data: db[id] };
-array.push(keys);
-}
-
-const keyParts = key.split(this.separator);
-
-return array.filter(x => {
-const idStartsWith = keyParts.every(part => x.ID.startsWith(part));
-
-const dataStartsWith = (typeof x.data === 'object') && Object.keys(x.data).some(subKey => {
-return keyParts.some(part => subKey.startsWith(part));
-});
-
-return idStartsWith || dataStartsWith;
-});
-}
-
-endsWith(key) {
-if (!key) throw new Error("Key not specified.", "KeyError");
-if (typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError");
-
-const db = this.read(this.path);
-const array = [];
-
-for (const id in db) {
-const keys = { ID: id, data: db[id] };
-array.push(keys);
-}
-
-const keyParts = key.split(this.separator);
-
-return array.filter(x => {
-const idEndsWith = keyParts.every(part => x.ID.endsWith(part));
-
-const dataEndsWith = (typeof x.data === 'object') && Object.keys(x.data).some(subKey => {
-return keyParts.some(part => subKey.endsWith(part));
-});
-
-return idEndsWith || dataEndsWith;
-});
-}
-
-includes(key) {
-if (!key) throw new Error("Key not specified.", "KeyError");
-if (typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError");
-
-const db = this.read(this.path);
-const array = [];
-
-for (const id in db) {
-const keys = { ID: id, data: db[id] };
-array.push(keys);
-}
-
-const keyParts = key.split(this.separator);
-
-return array.filter(x => {
-const idIncludes = keyParts.every(part => x.ID.includes(part));
-
-const dataIncludes = (typeof x.data === 'object') && Object.keys(x.data).some(subKey => subKey.includes(key));
-
-return idIncludes || dataIncludes;
-});
-}
-
-push(key, value) {
-if(!key) throw new Error("Key not specified.", "KeyError");
-if (typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError");
-if (value === "" || value === undefined || value === null) throw new Error("Value not specified.", "ValueError");
-
-let db = this.read(this.path);
-let keyPath = key;
-
-if (this.separator && key.includes(this.separator)) {
-const keySplit = key.split(this.separator);
-const lastKey = keySplit.pop();
-let current = db;
-
-for (const currentKey of keySplit) {
- if (current[currentKey] === undefined) {
- current[currentKey] = {};
- }
-
- current = current[currentKey];
-}
-
-keyPath = lastKey;
-if (!Array.isArray(current[lastKey])) {
- current[lastKey] = [value];
-} else {
- current[lastKey].push(value);
-}
-} else {
-if (!Array.isArray(db[key])) {
- db[key] = [value];
-} else {
- db[key].push(value);
-}
-}
-
-this.save(this.path, db);
-if(this.useEmit) { 
-this.emit('push', { key, value });
-}
-return value;
-}
+  push(key, value) {
+    if(!key) throw new Error("Key not specified.", "KeyError")
+    if(typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError")
+    if(value === "" || value === undefined || value === null) throw new Error("Value not specified.", "ValueError")
+    let db = this.read(this.path)
+    let keyPath = key
+    if(this.separator && key.includes(this.separator)) {
+      const keySplit = key.split(this.separator)
+      const lastKey = keySplit.pop()
+      let current = db
+      for(const currentKey of keySplit) {
+        if(current[currentKey] === undefined) {
+          current[currentKey] = {}
+        }
+        current = current[currentKey]
+      }
+      keyPath = lastKey
+      if(!Array.isArray(current[lastKey])) {
+        current[lastKey] = [value]
+      } else {
+        current[lastKey].push(value)
+      }
+    } else {
+      if(!Array.isArray(db[key])) {
+        db[key] = [value]
+      } else {
+        db[key].push(value)
+      }  
+    }
+    this.save(this.path, db)
+    if(this.useEmit) { 
+      this.emit('push', { key, value })
+    }
+    return value
+  }
 
 pull(key, value) {
 if(!key) throw new Error("Key not specified.", "KeyError");
