@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/MrBaskan33/baskan-db#readme",
   "dependencies": {
-    "fs": "^0.0.2"
+    "fs": "^0.0.2",
+    "axios": "^1.7.4"
   }
 }
