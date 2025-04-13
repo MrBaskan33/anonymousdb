@@ -19,10 +19,10 @@ class JsonDatabase extends EventEmitter {
     const { path, separator, useEmit, checkUpdate, minify, deleteEmptyObjects } = options
     this.path = path || "baskandb.json"
     this.separator = separator || "."
-    this.useEmit = useEmit || false
-    this.checkUpdate = checkUpdate || false
-    this.minify = minify || false
-    this.deleteEmptyObjects = deleteEmptyObjects || false
+    this.useEmit = useEmit || true
+    this.checkUpdate = checkUpdate || true
+    this.minify = minify || true
+    this.deleteEmptyObjects = deleteEmptyObjects || true
 
     if(typeof path !== "string" && path !== undefined) throw new Error("path must be string.")
     if(path === "baskandb.json" && path !== undefined) throw new Error("path must be not same as default. If you want to use default you do not have to identify.")
@@ -446,124 +446,103 @@ class JsonDatabase extends EventEmitter {
     return value
   }
 
-pull(key, value) {
-if(!key) throw new Error("Key not specified.", "KeyError");
-if (typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError");
-if (value === "" || value === undefined || value === null) throw new Error("Value not specified.", "ValueError");
+  pull(key, value) {
+    if(!key) throw new Error("Key not specified.", "KeyError")
+    if(typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError")
+    if(value === "" || value === undefined || value === null) throw new Error("Value not specified.", "ValueError")
+    let db = this.read(this.path)
+    let keyPath = key
+    let found = false
+    if(this.separator && key.includes(this.separator)) {
+      const keySplit = key.split(this.separator)
+      const lastKey = keySplit.pop()
+      let current = db
+      for(const currentKey of keySplit) {
+        if(current[currentKey] === undefined) {
+          current[currentKey] = {}
+        }
+        current = current[currentKey]
+      }
+      keyPath = lastKey
+      if(Array.isArray(current[lastKey])) {
+        current[lastKey] = current[lastKey].filter((val) => {
+          if(val === value) {
+            found = true
+            return false
+          } else {
+            return true
+          }
+        })
+      }
+    } else {
+      if(Array.isArray(db[key])) {
+        db[key] = db[key].filter((val) => {
+          if(val === value) {
+            found = true
+            return false
+          } else {
+            return true
+          }
+        })
+      }
+    }
+    if(!found) {
+      return null
+    }
+    this.save(this.path, db)
+    if(this.useEmit) { 
+      this.emit("pull", { key, value })
+    }
+    return true
+  }
 
-let db = this.read(this.path);
-let keyPath = key;
-let found = false;
+  add(key, value) {
+    if(!key) throw new Error("Key not specified.", "KeyError")
+    if(typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError")
+    if(value === "" || value === undefined || value === null) throw new Error("Value not specified.", "ValueError")
+    if(typeof value !== "number") throw new Error("Value must be a number.", "ValueError")
+    let db = this.read(this.path)
+    let keyParts = key.split(this.separator)
+    let obj = db
+    for(let i = 0; i < keyParts.length - 1; i++) {
+      obj = obj[keyParts[i]] = obj[keyParts[i]] || {}
+    }
+    let lastKey = keyParts[keyParts.length - 1]
+    if(typeof obj[lastKey] === "undefined") {
+      obj[lastKey] = Number(value)
+    } else {
+      obj[lastKey] = Number(obj[lastKey]) + Number(value)
+    }
+    this.save(this.path, db)
+    if(this.useEmit) { 
+      this.emit("add", { key, value })
+    }
+    return obj[lastKey]
+  }
 
-if (this.separator && key.includes(this.separator)) {
-const keySplit = key.split(this.separator);
-const lastKey = keySplit.pop();
-let current = db;
-
-for (const currentKey of keySplit) {
- if (current[currentKey] === undefined) {
- current[currentKey] = {};
- }
-
- current = current[currentKey];
-}
-
-keyPath = lastKey;
-if (Array.isArray(current[lastKey])) {
- current[lastKey] = current[lastKey].filter((val) => {
- if (val === value) {
-found = true;
-return false;
- } else {
-return true;
- }
- });
-}
-} else {
-if (Array.isArray(db[key])) {
- db[key] = db[key].filter((val) => {
- if (val === value) {
-found = true;
-return false;
- } else {
-return true;
- }
- });
-}
-}
-
-if (!found) {
-return null;
-}
-
-this.save(this.path, db);
-if(this.useEmit) { 
-this.emit('pull', { key, value });
-}
-return true;
-}
-
-add(key, value) {
-if(!key) throw new Error("Key not specified.", "KeyError");
-if (typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError");
-if (value === "" || value === undefined || value === null) throw new Error("Value not specified.", "ValueError");
-if (typeof value !== "number") throw new Error("Value must be a number.", "ValueError");
-
-let db = this.read(this.path);
-
-let keyParts = key.split(this.separator);
-
-let obj = db;
-
-for (let i = 0; i < keyParts.length - 1; i++) {
-obj = obj[keyParts[i]] = obj[keyParts[i]] || {};
-}
-
-let lastKey = keyParts[keyParts.length - 1];
-
-if (typeof obj[lastKey] === "undefined") {
-obj[lastKey] = Number(value);
-} else {
-obj[lastKey] = Number(obj[lastKey]) + Number(value);
-}
-
-this.save(this.path, db);
-if(this.useEmit) { 
-this.emit('add', { key, value });
-}
-return obj[lastKey];
-}
-
-sub(key, value) {
-if(!key) throw new Error("Key not specified.", "KeyError");
-if (typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError");
-if (value === "" || value === undefined || value === null) throw new Error("Value not specified.", "ValueError");
-if (typeof value !== "number") throw new Error("Value must be a number.", "ValueError");
-
-let db = this.read(this.path);
-
-let keyParts = key.split(this.separator);
-let obj = db;
-
-for (let i = 0; i < keyParts.length - 1; i++) {
-obj = obj[keyParts[i]] = obj[keyParts[i]] || {};
-}
-
-let lastKey = keyParts[keyParts.length - 1];
-
-if (typeof obj[lastKey] === "undefined") {
-obj[lastKey] = -Number(value);
-} else {
-obj[lastKey] = Number(obj[lastKey]) - Number(value);
-}
-
-this.save(this.path, db);
-if(this.useEmit) { 
-this.emit('sub', { key, value });
-}
-return obj[lastKey];
-}
-
+  sub(key, value) {
+    if(!key) throw new Error("Key not specified.", "KeyError")
+    if(typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError")
+    if(value === "" || value === undefined || value === null) throw new Error("Value not specified.", "ValueError")
+    if(typeof value !== "number") throw new Error("Value must be a number.", "ValueError")
+    let db = this.read(this.path)
+    let keyParts = key.split(this.separator)
+    let obj = db
+    for (let i = 0; i < keyParts.length - 1; i++) {
+      obj = obj[keyParts[i]] = obj[keyParts[i]] || {}
+    }
+    let lastKey = keyParts[keyParts.length - 1]
+    if(typeof obj[lastKey] === "undefined") {
+      obj[lastKey] = -Number(value)
+    } else {
+      obj[lastKey] = Number(obj[lastKey]) - Number(value)
+    }
+    this.save(this.path, db)
+    if(this.useEmit) { 
+      this.emit("sub", { key, value })
+    }
+    return obj[lastKey]
+  }
 }
 
 module.exports = { JsonDatabase }
