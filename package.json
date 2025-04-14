@@ -1,5 +1,5 @@
 {
-  "name": "baskan-db",
+  "name": "mr.db",
   "version": "0.0.1",
   "description": "Türçe okunabilir json database kütüphanesi.",
   "main": "src/index.js",
@@ -17,9 +17,9 @@
   "author": "mrbaskan",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/MrBaskan33/baskan-db/issues"
+    "url": "https://github.com/MrBaskan33/mr.db/issues"
   },
-  "homepage": "https://github.com/MrBaskan33/baskan-db#readme",
+  "homepage": "https://github.com/MrBaskan33/mr.db#readme",
   "dependencies": {
     "fs": "^0.0.2",
     "axios": "^1.7.4"
