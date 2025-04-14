@@ -1,11 +1,11 @@
 - # Yüklemek için
 ```
-npm install mr.db
+npm install anonymousdb@latest
 ```
 ___
 - # Nasıl kullanılır
 ```javascript
-const { JsonDatabase } = require(mr.db")
+const { JsonDatabase } = require("anonymousdb")
 const db = new JsonDatabase({ path: "./database/baskandb.json" })
 
 ________________________________
