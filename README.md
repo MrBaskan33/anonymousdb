@@ -1,11 +1,11 @@
 - # Yüklemek için
 ```
-npm install baskan-db
+npm install mr.db
 ```
 ___
 - # Nasıl kullanılır
 ```javascript
-const { JsonDatabase } = require("baskan-db")
+const { JsonDatabase } = require(mr.db")
 const db = new JsonDatabase({ path: "./database/baskandb.json" })
 
 ________________________________
