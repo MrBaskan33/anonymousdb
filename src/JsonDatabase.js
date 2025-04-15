@@ -25,7 +25,7 @@ class JsonDatabase extends EventEmitter {
     this.deleteEmptyObjects = deleteEmptyObjects || true
 
     if(typeof path !== "string" && path !== undefined) throw new Error("path must be string.")
-    if(path === "baskandb.json" && path !== undefined) throw new Error("path must be not same as default. If you want to use default you do not have to identify.")
+    if(path === "anonymousdb.json" && path !== undefined) throw new Error("path must be not same as default. If you want to use default you do not have to identify.")
     if(typeof separator !== "string" && separator !== undefined) throw new Error("separator must be string.")
     if(separator === "." && separator !== undefined) throw new Error("separator must be not same as default. If you want to use default you do not have to identify.")
     if(typeof useEmit !== "boolean" && useEmit !== undefined) throw new Error("useEmit must be a boolean.")
