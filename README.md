@@ -6,7 +6,7 @@ ___
 - # Nasıl kullanılır
 ```javascript
 const { JsonDatabase } = require("anonymousdb")
-const db = new JsonDatabase({ path: "./database/baskandb.json" })
+const db = new JsonDatabase({ path: "./database/anonymousdb.json" })
 
 ________________________________
 |                              |        
