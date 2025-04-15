@@ -61,7 +61,7 @@ class JsonDatabase extends EventEmitter {
     if(this.minify === false) {
       return fs.writeFileSync(file, JSON.stringify(data, null, 2))
     } else {
-      return fs.writeFileSync(file, JSON.stringify(data));
+      return fs.writeFileSync(file, JSON.stringify(data))
     }
   }
 
