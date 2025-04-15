@@ -449,7 +449,7 @@ class JsonDatabase extends EventEmitter {
     }
     this.save(this.path, db)
     if(this.useEmit) { 
-      this.emit('push', { key, value })
+      this.emit("push", { key, value })
     }
     return value
   }
