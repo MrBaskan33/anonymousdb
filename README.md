@@ -32,5 +32,6 @@ ________________________________
 | db.clear()                   |
 | db.destroy()                 |
 | db.backup("./backupdb.json") |
+| db.move(quickdb)             |
 |______________________________|
 ```
