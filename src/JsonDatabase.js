@@ -21,7 +21,7 @@ class JsonDatabase extends EventEmitter {
     this.separator = separator || "."
     this.useEmit = useEmit || true
     this.checkUpdate = checkUpdate || true
-    this.minify = minify || true
+    this.minify = minify || false
     this.deleteEmptyObjects = deleteEmptyObjects || true
 
     if(typeof path !== "string" && path !== undefined) throw new Error("path must be string.")
