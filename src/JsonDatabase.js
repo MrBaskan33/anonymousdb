@@ -17,7 +17,7 @@ class JsonDatabase extends EventEmitter {
   constructor(options) { 
     super()
     const { path, separator, useEmit, checkUpdate, minify, deleteEmptyObjects } = options
-    this.path = path || "baskandb.json"
+    this.path = path || "anonymousdb.json"
     this.separator = separator || "."
     this.useEmit = useEmit || true
     this.checkUpdate = checkUpdate || true
@@ -336,7 +336,7 @@ class JsonDatabase extends EventEmitter {
   all(key = "all") {
     switch (key) {
       case "all":
-      const jsonData = JSON.parse(readFileSync(this.path, "utf-8"))
+      const jsonData = JSON.parse(fs.readFileSync(this.path, "utf-8"))
       const arr = []
       for(const key in jsonData) {
         arr.push({
