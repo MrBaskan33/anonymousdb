@@ -336,7 +336,15 @@ class JsonDatabase extends EventEmitter {
   all(key = "all") {
     switch (key) {
       case "all":
-      return this.read(this.path)
+      const jsonData = JSON.parse(readFileSync(this.path, "utf-8"))
+      const arr = []
+      for(const key in jsonData) {
+        arr.push({
+          ID: key,
+          data: jsonData[key]
+        })
+      }   
+      return arr
       case "object":
       return Object.entries(this.read(this.path))
       case "keys":
