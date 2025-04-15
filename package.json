@@ -1,6 +1,6 @@
 {
   "name": "anonymousdb",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Türçe okunabilir json database kütüphanesi.",
   "main": "src/index.js",
   "scripts": {
