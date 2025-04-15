@@ -551,6 +551,18 @@ class JsonDatabase extends EventEmitter {
     }
     return obj[lastKey]
   }
+
+  move(quickdb) {
+    quickdb.all().then(data => {
+      data.forEach(data => {
+        this.set(data.id, data.value)
+      })
+    })
+    if(this.useEmit) { 
+      this.emit("move", true)
+    }
+    return true
+  }
 }
 
 module.exports = { JsonDatabase }
