@@ -68,7 +68,6 @@ class JsonDatabase extends EventEmitter {
   set(key, value) {
     if(!key) throw new Error("Key not specified.", "KeyError")
     if(typeof key !== "string") throw new Error("Key needs to be a string.", "KeyError")
-    if(value === "" || value === undefined || value === null) throw new Error("Value not specified.", "ValueError")
     let db = this.read(this.path)
     let keyPath = key
     if(this.separator && key.includes(this.separator)) {
